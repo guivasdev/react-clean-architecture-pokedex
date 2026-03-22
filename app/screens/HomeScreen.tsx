@@ -17,6 +17,14 @@ export const HomeScreen: FC<HomeScreenProps> = () => {
   const [visibleImageModel, setVisibleImageModel] = useState(false)
   const { name, setName, sendNameApi, imagePoke, namePoke } = usePoke()
 
+  const handlePoke = async () => {
+    const name = await sendNameApi()
+    console.log(name)
+    if (name)
+      setVisibleImageModel(true)
+
+  }
+
   return (
     <Screen contentContainerStyle={themed($root)} preset="scroll">
 
@@ -31,9 +39,9 @@ export const HomeScreen: FC<HomeScreenProps> = () => {
         </View>
         {/* Parte 2 */}
         <View style={$bottom}>
-          <TextField containerStyle={{ width: '90%', marginBottom:30 }}value={name} onChangeText={setName} />
+          <TextField containerStyle={{ width: '90%', marginBottom: 30 }} value={name} onChangeText={setName} />
 
-          <TouchableOpacity style={$button} onPress={() => { sendNameApi(), setVisibleImageModel(true) }}>
+          <TouchableOpacity style={$button} onPress={() => handlePoke()}>
             <Text style={$buttonText}>Buscar</Text>
           </TouchableOpacity>
 

@@ -48,13 +48,16 @@ export class ApiPoke {
     async getPokeName(namePoke: string): Promise<{ kind: "ok"; episodes: PokeItem } | GeneralApiProblem> {
         // make the api call
         const response: ApiResponse<PokeItem> = await this.apisauce.get(
-            `https://pokeapi.co/api/v2/pokemon/ditto`,
+            `https://pokeapi.co/api/v2/pokemon/` + `${namePoke}`,
+
         )
+        console.log(response.data)
         // the typical ways to die when calling an api
         if (!response.ok) {
             const problem = getGeneralApiProblem(response)
             if (problem) return problem
         }
+
 
         // transform the data into the format we are expecting
         try {

@@ -8,16 +8,15 @@ export function usePoke() {
 
     const sendNameApi = async () => {
 
-
+        console.log(name)
         if (validateDate() == false)
-            return
+            return false
 
         const dados = await apiPoke.getPokeName(name)
 
         const filterData = dados.kind === 'ok' ? dados.episodes : null
-
         if (!filterData)
-            return
+            return false
 
         const stringHandle = filterData?.image.split(filterData.name)
 
@@ -26,6 +25,8 @@ export function usePoke() {
         setImagePoke(stringHandle[0] + filterData.id + '.png')
 
         console.log(imagePoke)
+        return true
+
 
     }
     const validateDate = () => {
